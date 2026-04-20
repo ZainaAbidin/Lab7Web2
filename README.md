@@ -98,3 +98,65 @@ data artikel dalam bentuk list link.
     <?= view_cell('App\\Cells\\ArtikelTerkini::render') ?>
 </aside>
 ```
+
+# Praktikum 3
+### 1. Penyesuaian Database dan Program
+Untuk tugas ini, kolom created_at dengan tipe TIMESTAMP telah berhasil ditambahkan ke tabel artikel. Kode 
+pada `ArtikelTerkini.php` juga sudah diperbarui menggunakan perintah `$model->orderBy('created_at', 'DESC')`. Hal ini 
+memastikan aplikasi selalu mengambil data artikel yang paling baru diinput berdasarkan waktu sistem, bukan 
+sekadar urutan ID. Seluruh langkah praktikum mulai dari pembuatan `Layout, penulisan CSS Flexbox`, hingga 
+implementasi View Cell telah diselesaikan dengan improvisasi pada bagian penanganan error class.
+### 2. Manfaat Utama View Layout
+Manfaat utamanya adalah efisiensi dan konsistensi. Dengan View Layout, kita cukup menulis struktur dasar HTML 
+(seperti header, navigasi, dan footer) satu kali saja. Halaman lain hanya perlu "mengisi" bagian kontennya. 
+Ini memudahkan pemeliharaan kode; jika ada perubahan menu navigasi, kita hanya perlu mengubah satu 
+file layout saja, dan seluruh halaman website akan otomatis ikut terupdate.
+### 3. Perbedaan View Cell dan View Biasa
+```View Biasa:``` Bersifat pasif dan sangat bergantung pada Controller. 
+Data harus dikirimkan oleh Controller saat fungsi return view() dipanggil. 
+Jika data tersebut dibutuhkan di banyak halaman (seperti sidebar), maka 
+setiap Controller harus mengambil data yang sama secara berulang-ulang.
+```View Cell:``` Bersifat mandiri dan modular. View Cell memiliki logic atau 
+"Controller kecil" sendiri di dalamnya. Ia bisa dipanggil di mana saja (di dalam view manapun) 
+tanpa harus melibatkan Controller utama halaman tersebut. Ini sangat cocok untuk komponen 
+yang muncul di banyak tempat seperti widget berita, profil user, atau keranjang belanja.
+### 4. Improvisasi View Cell dengan Kategori
+Untuk membatasi tampilan hanya pada kategori tertentu, kita bisa menambahkan parameter pada fungsi render() dan menggunakan klausa where pada query database.
+
+`Contoh Logic pada ArtikelTerkini.php:`
+```
+PHP
+public function render(string $kategori = 'berita'): string
+{
+    $model = new \App\Models\ArtikelModel();
+    // Mengambil artikel yang hanya memiliki kategori tertentu
+    $artikel = $model->where('kategori', $kategori)
+                     ->orderBy('created_at', 'DESC')
+                     ->limit(5)
+                     ->findAll();
+
+    return view('components/artikel_terkini', ['artikel' => $artikel]);
+}
+```
+
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/ca452061-cbac-46db-9905-51eec01e7509" />
+
+
+# Praktikun 4
+Proses dimulai dengan mempersiapkan infrastruktur data, yaitu membuat tabel user pada `MySQL` untuk menyimpan informasi akun. 
+Setelah tabel siap, dibuat sebuah UserModel yang berfungsi sebagai penghubung logika aplikasi dengan database agar data 
+pengguna bisa dikelola. Langkah selanjutnya adalah membangun `User Controller` untuk menangani alur masuk dan keluar pengguna, 
+di mana sistem akan mengambil input email dan password, lalu memverifikasinya dengan data di database menggunakan fungsi keamanan 
+hash.Agar sistem bisa diuji, digunakan fitur Seeder untuk memasukkan data akun admin secara otomatis ke dalam database 
+tanpa harus menginputnya secara manual lewat form. Untuk menjaga keamanan halaman admin, dibuat sebuah Auth Filter yang 
+bertindak sebagai penjaga pintu; filter ini akan mencegat setiap permintaan akses dan memastikan hanya pengguna yang sudah 
+login yang bisa masuk, sementara yang belum `login` akan diarahkan kembali ke halaman masuk. Terakhir, semua komponen
+tersebut diintegrasikan melalui konfigurasi rute dan filter agar halaman dashboard admin benar-benar terlindungi secara otomatis oleh sistem autentikasi yang telah dibuat.
+### Halaman Login
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/651cbf95-6385-4471-adeb-6b64fe4dac78" />
+
+### Halaman Setelah Login
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/4b1a2f9a-d3fa-4c9a-bbf8-c158af5957db" />
+
+
+
