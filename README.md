@@ -159,4 +159,15 @@ tersebut diintegrasikan melalui konfigurasi rute dan filter agar halaman dashboa
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/4b1a2f9a-d3fa-4c9a-bbf8-c158af5957db" />
 
 
+# Praktikun 5
+Proses dimulai dengan memodifikasi logika pada Controller Artikel untuk menerapkan sistem Pagination, di mana daftar 
+artikel yang sebelumnya ditampilkan secara keseluruhan kini dibatasi (misalnya 10 data per halaman) menggunakan library 
+pager bawaan `CodeIgniter 4`. Bersamaan dengan itu, dikembangkan fitur Pencarian dengan menangkap variabel kata kunci dari
+URL dan mengintegrasikannya ke dalam query database menggunakan perintah like, sehingga sistem dapat menyaring artikel 
+berdasarkan judul yang spesifik.Pada bagian antarmuka `(View)`, sebuah form pencarian ditambahkan di atas tabel untuk memfasilitasi
+input pengguna, serta navigasi nomor halaman diletakkan di bawah tabel agar pengguna dapat berpindah antar halaman data. 
+Untuk meningkatkan pengalaman pengguna, dilakukan penyesuaian pada logika penomoran di dalam tabel agar angka yang muncul 
+adalah nomor urut baris yang konsisten `(1, 2, 3...)`, bukan lagi menampilkan ID unik dari database yang biasanya tidak 
+berurutan. Terakhir, konfigurasi pagination dipastikan tetap membawa parameter pencarian saat berpindah halaman agar hasil filter data tidak hilang atau ter-reset.
+<img width="1920" height="1080" alt="Screenshot (276)" src="https://github.com/user-attachments/assets/08e21360-cac9-4462-a143-5a17f8f6b04c" />
 
