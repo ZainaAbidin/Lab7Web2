@@ -172,7 +172,7 @@ berurutan. Terakhir, konfigurasi pagination dipastikan tetap membawa parameter p
 <img width="1920" height="1080" alt="Screenshot (276)" src="https://github.com/user-attachments/assets/08e21360-cac9-4462-a143-5a17f8f6b04c" />
 
 
-### Praktikum 6
+# Praktikum 6
 ### 1. Persiapan Relasi pada Struktur Database
 Langkah pertama dimulai dari fondasi paling dasar, yaitu tabel di database. Kita memastikan bahwa tabel artikel memiliki 
 kolom khusus bernama id_kategori yang berfungsi sebagai "kunci penghubung". Di sini, kita tidak lagi menuliskan nama kategori 
