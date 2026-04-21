@@ -171,3 +171,39 @@ adalah nomor urut baris yang konsisten `(1, 2, 3...)`, bukan lagi menampilkan ID
 berurutan. Terakhir, konfigurasi pagination dipastikan tetap membawa parameter pencarian saat berpindah halaman agar hasil filter data tidak hilang atau ter-reset.
 <img width="1920" height="1080" alt="Screenshot (276)" src="https://github.com/user-attachments/assets/08e21360-cac9-4462-a143-5a17f8f6b04c" />
 
+
+### Praktikum 6
+### 1. Persiapan Relasi pada Struktur Database
+Langkah pertama dimulai dari fondasi paling dasar, yaitu tabel di database. Kita memastikan bahwa tabel artikel memiliki 
+kolom khusus bernama id_kategori yang berfungsi sebagai "kunci penghubung". Di sini, kita tidak lagi menuliskan nama kategori 
+secara langsung di tabel artikel, melainkan hanya menyimpan angka ID-nya saja. Dengan cara ini, tabel artikel dan tabel kategoris 
+menjadi saling terhubung satu sama lain, menciptakan sebuah relasi yang memungkinkan satu label kategori digunakan oleh banyak artikel tanpa terjadi duplikasi data yang berantakan.
+
+### 2. Pengaturan Izin dan Logika Penggabungan pada Model
+Langkah kedua berlanjut ke bagian Model, yang bertugas sebagai penjaga pintu database. Kita wajib mendaftarkan id_kategori 
+ke dalam daftar bidang yang diizinkan agar sistem CodeIgniter mau memproses dan menyimpan data tersebut saat dikirim dari 
+form. Selain itu, Model dibekali dengan perintah penggabungan atau Join. Perintah ini bekerja secara otomatis untuk menarik 
+nama asli kategori dari tabel kategoris saat kita menampilkan daftar artikel, sehingga di layar kamu muncul tulisan seperti "Teknologi" atau "Edukasi" dan bukannya sekadar angka ID yang sulit dimengerti.
+
+### 3. Pengaturan Logika Operasional pada Controller
+Langkah ketiga adalah mengatur Controller yang berperan sebagai otak dari aplikasi ini. Controller bertugas menjembatani 
+antara data di database dan apa yang tampil di layar pengguna. Saat kamu membuka halaman tambah atau ubah, Controller 
+memerintahkan sistem untuk mengambil seluruh daftar kategori yang tersedia agar bisa ditampilkan sebagai pilihan. Begitu 
+kamu menekan tombol simpan, Controller akan menangkap data tersebut, membuat slug otomatis untuk alamat URL, dan memastikan 
+semua variabel—termasuk variabel pencarian—sudah siap digunakan agar aplikasi tidak mengalami error saat memuat halaman.
+
+### 4. Pembuatan Antarmuka Dinamis pada View
+Langkah keempat berfokus pada tampilan atau View yang kamu lihat di browser. Di sini, kita membuat dropdown kategori 
+yang sifatnya dinamis menggunakan perulangan. Artinya, pilihan kategori yang muncul di layar akan selalu mengikuti d
+ata terbaru yang ada di database. Khusus pada bagian edit artikel, View ini juga memiliki kecerdasan untuk mendeteksi
+kategori mana yang sudah dipilih sebelumnya. Jika sebuah artikel terdaftar di bawah kategori `"Lifestyle"`, maka saat 
+tombol ubah diklik, pilihan tersebut akan langsung muncul secara otomatis di kotak dropdown tanpa perlu kamu cari lagi.
+
+### 5. Sinkronisasi Final dan Eksekusi Perubahan
+Langkah terakhir adalah memastikan semua file tersebut saling berkomunikasi dengan benar. Masalah yang sebelumnya kamu 
+hadapi, di mana data tidak berubah atau dropdown kosong, diselesaikan dengan menyatukan nama variabel dan nama tabel di
+semua file. Dengan atribut form yang sudah memiliki tujuan alamat yang jelas dan Model yang sudah diberi izin akses, 
+sekarang setiap kali kamu memilih kategori dan menekan tombol kirim, data tersebut akan mengalir lancar menuju database 
+dan tersimpan secara permanen. Akhirnya, daftar artikel kamu kini menampilkan label kategori yang sesuai dan fitur 
+hapus maupun ubah berfungsi dengan sempurna.
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/88314884-3be9-46e7-8e96-567a913e33a6" />
